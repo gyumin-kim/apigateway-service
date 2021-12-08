@@ -3,10 +3,10 @@ server:
 
 eureka:
   client:
-    register-with-eureka: false
-    fetch-registry: false
+    register-with-eureka: false # Eureka 서버에 등록할 것인지
+    fetch-registry: false       # Eureka 서버로부터 인스턴스들의 정보를 주기적으로 가져올 것인지
     service-url:
-      defaultZone: http://localhost:8761/eureka
+      defaultZone: http://localhost:8761/eureka # Eureka 서버의 위치를 지정
 
 spring:
   application:
@@ -15,9 +15,11 @@ spring:
     gateway:
       routes:
         - id: first-service
-          uri: http://localhost:8081/
-          predicates:
+          uri: http://localhost:8081/ # forwarding될 주소
+          predicates:                 # 조건절
             - Path=/first-service/**
+            # Path: 이 path에 해당하는 요청이 오면 위 uri로 forwarding
+              # 단, 위 uri 뒤에 해당 Path가 붙여진 uri로 forwarding되므로 주의
         - id: second-service
           uri: http://localhost:8082/
           predicates:

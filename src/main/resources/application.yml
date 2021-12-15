@@ -21,7 +21,7 @@ spring:
             postLogger: true
       routes:
         - id: first-service
-          uri: http://localhost:8081/ # forwarding될 주소
+          uri: lb://MY-FIRST-SERVICE # forwarding될 주소
           predicates:                 # 조건절
             - Path=/first-service/**
             # Path: 이 path에 해당하는 요청이 오면 위 uri로 forwarding
@@ -31,7 +31,7 @@ spring:
 #            - AddResponseHeader=first-response, first-response-header2
             - CustomFilter
         - id: second-service
-          uri: http://localhost:8082/
+          uri: lb://MY-SECOND-SERVICE
           predicates:
             - Path=/second-service/**
           filters:
